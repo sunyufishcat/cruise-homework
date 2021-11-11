@@ -1,10 +1,11 @@
 import * as React from 'react';
+import Page from '../../components/Page/Page';
 
 const Help = () => {
   return (
-    <div>
+    <Page>
       Help
-    </div>
+    </Page>
   )
 }
 

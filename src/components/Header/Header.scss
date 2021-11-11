@@ -10,8 +10,6 @@ header {
     margin: 0 auto;
     justify-content: flex-end;
     position: relative;
-    padding-top: 10px;
-    padding-bottom: 10px;
   }
 
   .logo {
@@ -21,10 +19,58 @@ header {
     transform: translate(-50%, -50%);
     height: 40px;
   }
+}
 
+.user-menu {
+  position: relative;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+
+  &:hover .user-menu-list,
+  .user-menu-list:hover {
+    display: block;
+  }
+}
+
+.image {
   .avatar {
+    vertical-align: middle;
+    display: inline-block;
     height: 40px;
     border-radius: 50%;
     margin-right: 10px;
+  }
+
+  .iconfont {
+    color: #435466;
+  }
+}
+
+.user-menu-list {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  padding: 5px 5px;
+  background-color: #FFFFFF;
+  box-shadow: 1px 4px 10px rgba(0, 0, 0, .1);
+  display: none;
+
+  .item {
+    list-style: none;
+    padding: 10px;
+    color: #2D4054;
+    min-width: 120px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #EFEFEF;
+    }
+
+    .iconfont {
+      margin-right: 10px;
+    }
   }
 }

@@ -1,11 +1,12 @@
 import * as React from 'react';
+import Page from '../../components/Page/Page';
 // import './Dashboard.scss';
 
 const DashBoard = () => {
   return (
-    <div>
+    <Page>
       DashBoard
-    </div>
+    </Page>
   )
 }
 
