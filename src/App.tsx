@@ -1,5 +1,5 @@
 import * as React from 'react';
-import './App.css';
+import './App.scss';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import DashBoard from './pages/DashBoard/DashBoard';
 import Agent from './pages/Agent/Agent';
