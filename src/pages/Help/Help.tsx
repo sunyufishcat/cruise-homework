@@ -1,7 +1,8 @@
 import * as React from 'react';
 import Page from '../../components/Page/Page';
+import {FC, ReactElement} from 'react';
 
-const Help = () => {
+const Help: FC = (): ReactElement => {
   return (
     <Page>
       Help

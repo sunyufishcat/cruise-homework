@@ -14,7 +14,7 @@ const Page = (props: any) => {
           <History />
         </div>
         <div className="right-side">
-
+          {props.children}
         </div>
       </section>
     </>

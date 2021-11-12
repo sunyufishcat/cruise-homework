@@ -1,8 +1,8 @@
 import * as React from 'react';
 import Page from '../../components/Page/Page';
-// import './Dashboard.scss';
+import {FC, ReactElement} from 'react';
 
-const DashBoard = () => {
+const DashBoard: FC = (): ReactElement => {
   return (
     <Page>
       DashBoard
