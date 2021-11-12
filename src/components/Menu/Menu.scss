@@ -1,0 +1,26 @@
+.menu {
+  padding-top: 20px;
+}
+
+.list-item {
+  list-style: none;
+  padding-left: 0;
+
+  .iconfont {
+    margin-right: 10px;
+  }
+
+  a {
+    text-decoration: none;
+    font-size: 14px;
+    color: white;
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+  }
+
+  &:hover a, .active {
+    color: #00B4CF;
+    background-color: #435466;
+  }
+}
