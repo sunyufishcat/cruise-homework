@@ -1,0 +1,17 @@
+.tab {
+  display: flex;
+
+  .item {
+    height: 50px;
+    line-height: 50px;
+    padding: 0 30px;
+    border-right: 1px solid #F3F3F3;
+    box-sizing: border-box;
+    cursor: pointer;
+
+    &.active {
+      color: #00B4CF;
+      border-bottom: 3px solid #00B4CF;
+    }
+  }
+}

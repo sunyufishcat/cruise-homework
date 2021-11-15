@@ -3,6 +3,7 @@ import Page from '../../components/Page/Page';
 import './Agent.scss'
 import {useEffect, useState} from 'react';
 import cruiseApi from '../../actions/cruise';
+import Tab from '../../components/Tab/Tab';
 
 enum AgentType {
   PHYSICAL = 'physical',
@@ -51,6 +52,10 @@ const Agent = () => {
     fetchData();
   }, []);
 
+  const handleTabChange = (value: number): void => {
+
+  }
+
   return (
     <Page>
       <div className="head-container">
@@ -72,6 +77,9 @@ const Agent = () => {
           <p className="number">{physicalAgents.length}</p>
           <p className="number">{virtualAgents.length}</p>
         </div>
+      </div>
+      <div className="nav">
+        <Tab onClick={(value: number) => handleTabChange(value)} />
       </div>
     </Page>
   )
