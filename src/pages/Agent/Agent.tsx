@@ -4,18 +4,19 @@ import './Agent.scss'
 import {useEffect, useState} from 'react';
 import cruiseApi from '../../actions/cruise';
 import Tab from '../../components/Tab/Tab';
+import AgentListItem from '../../components/AgentListItem/AgentListItem';
 
 enum AgentType {
   PHYSICAL = 'physical',
   VIRTUAL = 'virtual',
 }
 
-enum AgentStatus {
+export enum AgentStatus {
   BUILDING = 'building',
   IDLE = 'idle',
 }
 
-type AgentItem = {
+export type AgentItem = {
   id: number,
   name: string,
   os: string,
@@ -38,6 +39,7 @@ const Agent = () => {
     async function fetchData() {
       const existAgents = await cruiseApi.getAgents();
       setAgents(() => [...existAgents]);
+      setAgentsList(() => [...existAgents]);
 
       existAgents.map((existAgent: AgentItem) => {
         existAgent.status === AgentStatus.BUILDING ?
@@ -106,6 +108,11 @@ const Agent = () => {
         </div>
         <div className="iconfont icon-th-card"/>
         <div className="iconfont icon-th-list active"/>
+      </div>
+      <div className="agents">
+        {agentsList.length ? agentsList.map(agent => (
+          <AgentListItem agent={agent}/>
+        )) : null}
       </div>
     </Page>
   )

@@ -31,3 +31,22 @@ p, ul, li {
   font: inherit;
 }
 
+button {
+  padding: 5px 10px;
+  font-size: 14px;
+  margin-right: 10px;
+  height: 24px;
+  background-color: #00B4CF;
+  border: none;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+  color: white;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #01869A;
+  }
+}
+
