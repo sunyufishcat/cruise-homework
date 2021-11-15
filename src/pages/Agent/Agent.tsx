@@ -65,6 +65,17 @@ const Agent = () => {
     }
   }
 
+  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    const inputValue: string = event.target.value;
+    const matched: AgentItem[] = [];
+    for (let agent of agents) {
+      if(agent.name.match(inputValue)) {
+        matched.push(agent);
+      }
+    }
+    setAgentsList(() => [...matched]);
+  }
+
   return (
     <Page>
       <div className="head-container">
@@ -89,6 +100,12 @@ const Agent = () => {
       </div>
       <div className="nav">
         <Tab onClick={(value: number) => handleTabChange(value)} />
+        <div className="search">
+          <span className="iconfont icon-search"/>
+          <input type="text" onChange={event => handleSearch(event)}/>
+        </div>
+        <div className="iconfont icon-th-card"/>
+        <div className="iconfont icon-th-list active"/>
       </div>
     </Page>
   )

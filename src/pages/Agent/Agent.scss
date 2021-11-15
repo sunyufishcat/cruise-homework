@@ -87,5 +87,39 @@
   padding-right: 10px;
   height: 50px;
   align-items: center;
+
+  .iconfont {
+    cursor: pointer;
+    margin-right: 20px;
+
+    &.active {
+      color: #00B4CF;
+    }
+  }
+
+  .search {
+    margin-left: 15px;
+    position: relative;
+    height: 100%;
+    padding: 10px 80px 10px 10px;
+    flex: auto;
+    box-sizing: border-box;
+
+    .iconfont {
+      position: absolute;
+      color: gray;
+      left: 15px;
+      top: 13px;
+    }
+
+    input {
+      min-width: 200px;
+      height: 28px;
+      border: none;
+      background-color: #F3F3F3;
+      box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.2) inset;
+      padding-left: 35px;
+    }
+  }
 }
 
