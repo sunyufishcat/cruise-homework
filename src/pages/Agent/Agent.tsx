@@ -32,6 +32,7 @@ const Agent = () => {
   const [agents, setAgents] = useState<AgentItem[]>([]);
   const [physicalAgents, setPhysicalAgents] = useState<AgentItem[]>([]);
   const [virtualAgents, setVirtualAgents] = useState<AgentItem[]>([]);
+  const [agentsList, setAgentsList] = useState<AgentItem[]>([]);
 
   useEffect(() => {
     async function fetchData() {
@@ -53,7 +54,15 @@ const Agent = () => {
   }, []);
 
   const handleTabChange = (value: number): void => {
-
+    if (value === 0) {
+      setAgentsList(() => [...agents]);
+    }
+    if (value === 1) {
+      setAgentsList(() => [...physicalAgents]);
+    }
+    if (value === 2) {
+      setAgentsList(() => [...virtualAgents]);
+    }
   }
 
   return (
