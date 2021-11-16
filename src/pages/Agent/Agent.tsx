@@ -86,6 +86,12 @@ const Agent = () => {
     setAgentId(id);
   }
 
+  const handleAddResources = (value: string): void => {
+    const resources: Array<string> = value.split(',')
+      .map(resource => resource.trim())
+      .filter(resource => resource !== '');
+  }
+
   return (
     <Page>
       <div className="head-container">
@@ -122,7 +128,11 @@ const Agent = () => {
           <AgentListItem agent={agent} onSetPopup={(id) => handleSetPopup(id)}/>
         )) : null}
       </div>
-      <Popup isPopupDisplay={isPopupDisplay} />
+      <Popup
+        isPopupDisplay={isPopupDisplay}
+        onAddResources={(value: string) => handleAddResources(value)}
+        onCancel={() => setIsPopupDisplay(false)}
+      />
     </Page>
   )
 }
