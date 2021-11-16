@@ -5,12 +5,17 @@ import {AgentItem, AgentStatus} from '../../pages/Agent/Agent';
 type IProps = {
   agent: AgentItem,
   onSetPopup: (id: number) => void,
+  onDeleteResource: (id: number, resource: string) => void,
 }
 
 const AgentListItem = (props: IProps) => {
 
   const handlePopup = (id: number): void => {
     props.onSetPopup(id);
+  }
+
+  const handleDelete = (id: number, resource: string) => {
+    props.onDeleteResource(id, resource);
   }
 
   const { agent } = props;
@@ -43,7 +48,10 @@ const AgentListItem = (props: IProps) => {
             </button>
             {agent.resources.length ?
               agent.resources.map(resource => (
-                <button className="button-resource">
+                <button
+                  className="button-resource"
+                  onClick={() => handleDelete(agent.id, resource)}
+                >
                   <span>{resource}</span>
                   <span className="iconfont icon-trash"/>
                 </button>

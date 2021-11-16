@@ -91,7 +91,7 @@ const Agent = () => {
       .map(resource => resource.trim())
       .filter(resource => resource !== '');
 
-    agents.map(agent => {
+    agents.map((agent: AgentItem) => {
       if (agent.id === agentId) {
         agent.resources = agent.resources.concat(resources);
       }
@@ -104,6 +104,21 @@ const Agent = () => {
     }
     setAgentsList(agents);
     setIsPopupDisplay(false);
+  }
+
+  const handleDeleteResource = async (id: number, resource: string) => {
+    agents.map((agent: AgentItem) => {
+      if (agent.id === id) {
+        agent.resources = agent.resources.filter(item => item !== resource);
+      }
+      return agent;
+    })
+    const updatedAgent = agents.find(agent => agent.id === id);
+
+    if (updatedAgent) {
+      await cruiseApi.putAgents(id, updatedAgent);
+    }
+    setAgentsList(agents);
   }
 
   return (
@@ -139,7 +154,11 @@ const Agent = () => {
       </div>
       <div className="agents">
         {agentsList.length ? agentsList.map(agent => (
-          <AgentListItem agent={agent} onSetPopup={(id) => handleSetPopup(id)}/>
+          <AgentListItem
+            agent={agent}
+            onSetPopup={(id: number) => handleSetPopup(id)}
+            onDeleteResource={(id: number, resource: string) => handleDeleteResource(id, resource)}
+          />
         )) : null}
       </div>
       <Popup
