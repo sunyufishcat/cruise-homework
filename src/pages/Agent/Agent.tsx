@@ -5,6 +5,7 @@ import {useEffect, useState} from 'react';
 import cruiseApi from '../../actions/cruise';
 import Tab from '../../components/Tab/Tab';
 import AgentListItem from '../../components/AgentListItem/AgentListItem';
+import Popup from '../../components/Popup/Popup';
 
 enum AgentType {
   PHYSICAL = 'physical',
@@ -34,6 +35,8 @@ const Agent = () => {
   const [physicalAgents, setPhysicalAgents] = useState<AgentItem[]>([]);
   const [virtualAgents, setVirtualAgents] = useState<AgentItem[]>([]);
   const [agentsList, setAgentsList] = useState<AgentItem[]>([]);
+  const [isPopupDisplay, setIsPopupDisplay] = useState<boolean>(false);
+  const [agentId, setAgentId] =useState<number>();
 
   useEffect(() => {
     async function fetchData() {
@@ -78,6 +81,11 @@ const Agent = () => {
     setAgentsList(() => [...matched]);
   }
 
+  const handleSetPopup = (id: number) => {
+    setIsPopupDisplay(true);
+    setAgentId(id);
+  }
+
   return (
     <Page>
       <div className="head-container">
@@ -111,9 +119,10 @@ const Agent = () => {
       </div>
       <div className="agents">
         {agentsList.length ? agentsList.map(agent => (
-          <AgentListItem agent={agent}/>
+          <AgentListItem agent={agent} onSetPopup={(id) => handleSetPopup(id)}/>
         )) : null}
       </div>
+      <Popup isPopupDisplay={isPopupDisplay} />
     </Page>
   )
 }
