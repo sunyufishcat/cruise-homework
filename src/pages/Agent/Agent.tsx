@@ -86,10 +86,24 @@ const Agent = () => {
     setAgentId(id);
   }
 
-  const handleAddResources = (value: string): void => {
+  const handleAddResources = async (value: string) => {
     const resources: Array<string> = value.split(',')
       .map(resource => resource.trim())
       .filter(resource => resource !== '');
+
+    agents.map(agent => {
+      if (agent.id === agentId) {
+        agent.resources = agent.resources.concat(resources);
+      }
+      return agent;
+    })
+    const updatedAgent = agents.find(agent => agent.id === agentId);
+
+    if (agentId && updatedAgent) {
+      await cruiseApi.putAgents(agentId, updatedAgent);
+    }
+    setAgentsList(agents);
+    setIsPopupDisplay(false);
   }
 
   return (
