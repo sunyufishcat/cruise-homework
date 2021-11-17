@@ -102,23 +102,26 @@ const Agent = () => {
     if (agentId && updatedAgent) {
       await cruiseApi.putAgents(agentId, updatedAgent);
     }
+    setAgents(agents);
     setAgentsList(agents);
     setIsPopupDisplay(false);
   }
 
-  const handleDeleteResource = async (id: number, resource: string) => {
-    agents.map((agent: AgentItem) => {
+  const handleDeleteResource = async (id: number, index: number) => {
+    const updatedAgents: AgentItem[] = await cruiseApi.getAgents();
+    updatedAgents.map((agent: AgentItem) => {
       if (agent.id === id) {
-        agent.resources = agent.resources.filter(item => item !== resource);
+        agent.resources = agent.resources.filter((item, itemIndex) => itemIndex !== index);
       }
       return agent;
     })
-    const updatedAgent = agents.find(agent => agent.id === id);
+    const updatedAgent = updatedAgents.find(agent => agent.id === id);
 
     if (updatedAgent) {
       await cruiseApi.putAgents(id, updatedAgent);
     }
-    setAgentsList(agents);
+    setAgentsList(updatedAgents);
+    setAgents(updatedAgents);
   }
 
   return (
@@ -157,7 +160,7 @@ const Agent = () => {
           <AgentListItem
             agent={agent}
             onSetPopup={(id: number) => handleSetPopup(id)}
-            onDeleteResource={(id: number, resource: string) => handleDeleteResource(id, resource)}
+            onDeleteResource={(id: number, index: number) => handleDeleteResource(id, index)}
           />
         )) : null}
       </div>

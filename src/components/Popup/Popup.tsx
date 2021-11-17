@@ -13,6 +13,7 @@ const Popup = (props: IProps) => {
 
   const [inputValue, setInputValue] = useState<string>('');
 
+
   const handleInputInfo = (value: string): void => {
     setInputValue(value);
   }
@@ -21,6 +22,7 @@ const Popup = (props: IProps) => {
     if (inputValue.trim()) {
       props.onAddResources(inputValue);
     }
+    setInputValue('');
   }
 
   const handleCancel = (): void => {
