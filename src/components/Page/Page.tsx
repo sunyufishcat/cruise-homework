@@ -2,6 +2,7 @@ import * as React from 'react';
 import Header from '../Header/Header';
 import Menu from '../Menu/Menu';
 import History from '../History/History';
+import Footer from '../Footer/Footer';
 import './Page.scss';
 
 const Page = (props: any) => {
@@ -17,6 +18,7 @@ const Page = (props: any) => {
           {props.children}
         </div>
       </section>
+      <Footer />
     </>
 
   )
