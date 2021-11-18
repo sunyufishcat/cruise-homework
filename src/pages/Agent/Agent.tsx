@@ -138,12 +138,12 @@ const Agent = () => {
           <p className="status-number">{idleNum}</p>
         </div>
         <div className="card overview">
-          <p className="category">ALL</p>
-          <p className="category">{AgentType.PHYSICAL}</p>
-          <p className="category">{AgentType.VIRTUAL}</p>
-          <p className="number">{physicalAgents.length + virtualAgents.length}</p>
-          <p className="number">{physicalAgents.length}</p>
-          <p className="number">{virtualAgents.length}</p>
+          <p className="category all">ALL</p>
+          <p className="category physical">{AgentType.PHYSICAL}</p>
+          <p className="category virtual">{AgentType.VIRTUAL}</p>
+          <p className="number all-number">{physicalAgents.length + virtualAgents.length}</p>
+          <p className="number physical-number">{physicalAgents.length}</p>
+          <p className="number virtual-number">{virtualAgents.length}</p>
         </div>
       </div>
       <div className="nav">
