@@ -4,10 +4,11 @@ import './Agent.scss'
 import {useEffect, useState} from 'react';
 import cruiseApi from '../../actions/cruise';
 import Tab from '../../components/Tab/Tab';
+import AgentHeader from '../../components/AgentHeader/AgentHeader';
 import AgentListItem from '../../components/AgentListItem/AgentListItem';
 import Popup from '../../components/Popup/Popup';
 
-enum AgentType {
+export enum AgentType {
   PHYSICAL = 'physical',
   VIRTUAL = 'virtual',
 }
@@ -126,26 +127,12 @@ const Agent = () => {
 
   return (
     <Page>
-      <div className="head-container">
-        <div className="card building">
-          <div className="iconfont icon-cog"/>
-          <p className="content">{AgentStatus.BUILDING}</p>
-          <p className="status-number">{buildingNum}</p>
-        </div>
-        <div className="card idle">
-          <div className="iconfont icon-coffee"/>
-          <p className="content">{AgentStatus.IDLE}</p>
-          <p className="status-number">{idleNum}</p>
-        </div>
-        <div className="card overview">
-          <p className="category all">ALL</p>
-          <p className="category physical">{AgentType.PHYSICAL}</p>
-          <p className="category virtual">{AgentType.VIRTUAL}</p>
-          <p className="number all-number">{physicalAgents.length + virtualAgents.length}</p>
-          <p className="number physical-number">{physicalAgents.length}</p>
-          <p className="number virtual-number">{virtualAgents.length}</p>
-        </div>
-      </div>
+      <AgentHeader
+        physicalAgents={physicalAgents}
+        virtualAgents={virtualAgents}
+        buildingNum={buildingNum}
+        idleNum={idleNum}
+      />
       <div className="nav">
         <Tab onClick={(value: number) => handleTabChange(value)} />
         <div className="search">
