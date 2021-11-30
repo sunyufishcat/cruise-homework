@@ -25,6 +25,9 @@ const Popup = (props: IProps) => {
     }
 
     function handlePopupPosition(event: any) {
+      if (popupRef.current && popupRef.current.contains(event.target)) {
+        return;
+      }
       const addButton = event.target.getBoundingClientRect();
       setTop(addButton.top + addButton.height + 10);
       setLeft(addButton.left - addButton.width/2 - 5);
