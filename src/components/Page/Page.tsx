@@ -10,11 +10,11 @@ const Page = (props: any) => {
     <>
       <Header />
       <section className="wrapper">
-        <div className="left-side">
+        <div className="navigation">
           <Menu />
           <History />
         </div>
-        <div className="right-side">
+        <div className="agent-content">
           {props.children}
         </div>
       </section>
