@@ -133,6 +133,7 @@ const Agent = () => {
         buildingNum={buildingNum}
         idleNum={idleNum}
       />
+
       <div className="nav">
         <Tab onClick={(value: number) => handleTabChange(value)} />
         <div className="search">
@@ -142,6 +143,7 @@ const Agent = () => {
         <div className="iconfont icon-th-card"/>
         <div className="iconfont icon-th-list active"/>
       </div>
+
       <div className="agents">
         {agentsList.length ? agentsList.map(agent => (
           <AgentListItem
@@ -151,6 +153,7 @@ const Agent = () => {
           />
         )) : null}
       </div>
+
       <Popup
         isPopupDisplay={isPopupDisplay}
         onAddResources={(value: string) => handleAddResources(value)}
