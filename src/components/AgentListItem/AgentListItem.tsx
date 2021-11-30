@@ -46,7 +46,7 @@ const AgentListItem = (props: IProps) => {
             >
               <span className="iconfont icon-plus"/>
             </button>
-            {agent.resources.length ?
+            {agent.resources.length &&
               agent.resources.map((resource: string, index: number) => (
                 <button
                   className="button-resource"
@@ -55,15 +55,15 @@ const AgentListItem = (props: IProps) => {
                   <span>{resource}</span>
                   <span className="iconfont icon-trash"/>
                 </button>
-              )) : null
+              ))
             }
           </div>
 
-          {agent.status === AgentStatus.BUILDING ?
+          {agent.status === AgentStatus.BUILDING &&
             <button className="button-deny">
               <span className="iconfont icon-deny"/>
               <span>Deny</span>
-            </button> : null
+            </button>
           }
 
         </div>

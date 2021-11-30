@@ -45,7 +45,7 @@ const Agent = () => {
       setAgents(() => [...existAgents]);
       setAgentsList(() => [...existAgents]);
 
-      existAgents.map((existAgent: AgentItem) => {
+      existAgents.forEach((existAgent: AgentItem) => {
         existAgent.status === AgentStatus.BUILDING ?
           setBuildingNum(buildingNum => buildingNum + 1) :
           setIdleNum(idleNum => idleNum + 1);
@@ -53,7 +53,6 @@ const Agent = () => {
         existAgent.type === AgentType.PHYSICAL ?
           setPhysicalAgents(physicalAgents => [...physicalAgents, existAgent]) :
           setVirtualAgents(virtualAgents => [...virtualAgents, existAgent]);
-        return existAgent;
       })
     }
     fetchData();
@@ -92,11 +91,10 @@ const Agent = () => {
       .map(resource => resource.trim())
       .filter(resource => resource !== '');
 
-    agents.map((agent: AgentItem) => {
+    agents.forEach((agent: AgentItem) => {
       if (agent.id === agentId) {
         agent.resources = agent.resources.concat(resources);
       }
-      return agent;
     })
     const updatedAgent = agents.find(agent => agent.id === agentId);
 
@@ -110,11 +108,10 @@ const Agent = () => {
 
   const handleDeleteResource = async (id: number, index: number) => {
     const updatedAgents: AgentItem[] = await cruiseApi.getAgents();
-    updatedAgents.map((agent: AgentItem) => {
+    updatedAgents.forEach((agent: AgentItem) => {
       if (agent.id === id) {
         agent.resources = agent.resources.filter((item, itemIndex) => itemIndex !== index);
       }
-      return agent;
     })
     const updatedAgent = updatedAgents.find(agent => agent.id === id);
 
@@ -145,13 +142,13 @@ const Agent = () => {
       </div>
 
       <div className="agents">
-        {agentsList.length ? agentsList.map(agent => (
+        {agentsList.length && agentsList.map(agent => (
           <AgentListItem
             agent={agent}
             onSetPopup={(id: number) => handleSetPopup(id)}
             onDeleteResource={(id: number, index: number) => handleDeleteResource(id, index)}
           />
-        )) : null}
+        ))}
       </div>
 
       <Popup
