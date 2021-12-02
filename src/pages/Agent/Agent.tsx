@@ -1,7 +1,7 @@
 import * as React from 'react';
+import {useEffect, useState} from 'react';
 import Page from '../../components/Page/Page';
 import './Agent.scss'
-import {useEffect, useState} from 'react';
 import cruiseApi from '../../actions/cruise';
 import Tab from '../../components/Tab/Tab';
 import AgentHeader from '../../components/AgentHeader/AgentHeader';
@@ -63,9 +63,11 @@ const Agent = () => {
       setAgentsList(() => [...agents]);
     }
     if (value === 1) {
+      const physicalAgents = agents.filter(agent => agent.type === AgentType.PHYSICAL)
       setAgentsList(() => [...physicalAgents]);
     }
     if (value === 2) {
+      const virtualAgents = agents.filter(agent => agent.type === AgentType.VIRTUAL)
       setAgentsList(() => [...virtualAgents]);
     }
   }
@@ -91,16 +93,13 @@ const Agent = () => {
       .map(resource => resource.trim())
       .filter(resource => resource !== '');
 
-    agents.forEach((agent: AgentItem) => {
+    for (const agent of agents) {
       if (agent.id === agentId) {
         agent.resources = agent.resources.concat(resources);
+        await cruiseApi.putAgents(agentId, agent);
       }
-    })
-    const updatedAgent = agents.find(agent => agent.id === agentId);
-
-    if (agentId && updatedAgent) {
-      await cruiseApi.putAgents(agentId, updatedAgent);
     }
+
     setAgents(agents);
     setAgentsList(agents);
     setIsPopupDisplay(false);
@@ -108,16 +107,14 @@ const Agent = () => {
 
   const handleDeleteResource = async (agentId: number, index: number) => {
     const updatedAgents: AgentItem[] = await cruiseApi.getAgents();
-    updatedAgents.forEach((agent: AgentItem) => {
+
+    for (const agent of updatedAgents) {
       if (agent.id === agentId) {
         agent.resources = agent.resources.filter((item, itemIndex) => itemIndex !== index);
+        await cruiseApi.putAgents(agentId, agent);
       }
-    })
-    const updatedAgent = updatedAgents.find(agent => agent.id === agentId);
-
-    if (updatedAgent) {
-      await cruiseApi.putAgents(agentId, updatedAgent);
     }
+
     setAgentsList(updatedAgents);
     setAgents(updatedAgents);
   }
