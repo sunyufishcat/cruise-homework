@@ -41,19 +41,23 @@ const Agent = () => {
 
   useEffect(() => {
     async function fetchData() {
-      const existAgents = await cruiseApi.getAgents();
-      setAgents(() => [...existAgents]);
-      setAgentsList(() => [...existAgents]);
+      try {
+        const existAgents = await cruiseApi.getAgents();
+        setAgents(() => [...existAgents]);
+        setAgentsList(() => [...existAgents]);
 
-      existAgents.forEach((existAgent: AgentItem) => {
-        existAgent.status === AgentStatus.BUILDING ?
-          setBuildingNum(buildingNum => buildingNum + 1) :
-          setIdleNum(idleNum => idleNum + 1);
+        existAgents.forEach((existAgent: AgentItem) => {
+          existAgent.status === AgentStatus.BUILDING ?
+            setBuildingNum(buildingNum => buildingNum + 1) :
+            setIdleNum(idleNum => idleNum + 1);
 
-        existAgent.type === AgentType.PHYSICAL ?
-          setPhysicalAgents(physicalAgents => [...physicalAgents, existAgent]) :
-          setVirtualAgents(virtualAgents => [...virtualAgents, existAgent]);
-      })
+          existAgent.type === AgentType.PHYSICAL ?
+            setPhysicalAgents(physicalAgents => [...physicalAgents, existAgent]) :
+            setVirtualAgents(virtualAgents => [...virtualAgents, existAgent]);
+        })
+      } catch (error) {
+        console.log(error);
+      }
     }
     fetchData();
   }, []);
@@ -75,7 +79,7 @@ const Agent = () => {
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const inputValue: string = event.target.value;
     const matched: AgentItem[] = [];
-    for (let agent of agents) {
+    for (const agent of agents) {
       if(agent.name.match(inputValue)) {
         matched.push(agent);
       }
@@ -139,7 +143,7 @@ const Agent = () => {
       </div>
 
       <div className="agents">
-        {agentsList.length && agentsList.map(agent => (
+        {agentsList.length !== 0 && agentsList.map(agent => (
           <AgentListItem
             agent={agent}
             onSetPopup={(agentId: number) => handleSetPopup(agentId)}
