@@ -4,18 +4,18 @@ import {AgentItem, AgentStatus} from '../../pages/Agent/Agent';
 
 type IProps = {
   agent: AgentItem,
-  onSetPopup: (id: number) => void,
-  onDeleteResource: (id: number, index: number) => void,
+  onSetPopup: (agentId: number) => void,
+  onDeleteResource: (agentId: number, index: number) => void,
 }
 
 const AgentListItem = (props: IProps) => {
 
-  const handlePopup = (id: number): void => {
-    props.onSetPopup(id);
+  const handlePopup = (agentId: number): void => {
+    props.onSetPopup(agentId);
   }
 
-  const handleDelete = (id: number, index: number) => {
-    props.onDeleteResource(id, index);
+  const handleDelete = (agentId: number, index: number) => {
+    props.onDeleteResource(agentId, index);
   }
 
   const { agent } = props;
