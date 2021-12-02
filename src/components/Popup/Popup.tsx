@@ -58,7 +58,7 @@ const Popup = (props: IProps) => {
     setInputValue('');
   }
 
-  const popup = props.isPopupDisplay ? (
+  const popup = props.isPopupDisplay && (
     <div
       className="popup"
       ref={popupRef}
@@ -80,7 +80,7 @@ const Popup = (props: IProps) => {
         </button>
       </div>
     </div>
-  ) : null;
+  );
 
   return ReactDOM.createPortal(popup, document.getElementById('portal')!);
 }
