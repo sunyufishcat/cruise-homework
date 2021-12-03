@@ -34,6 +34,7 @@ const Agent = () => {
   const [agentsList, setAgentsList] = useState<AgentItem[]>([]);
   const [isPopupDisplay, setIsPopupDisplay] = useState<boolean>(false);
   const [agentId, setAgentId] =useState<number>();
+  const [errorPage, setErrorPage] = useState<boolean>(false);
 
   useEffect(() => {
     fetchData();
@@ -42,12 +43,13 @@ const Agent = () => {
   const fetchData = async () => {
     try {
       const existAgents = await cruiseApi.getAgents();
-      // @ts-ignore
-      // throw new error('error');
       setAgents(() => [...existAgents]);
       setAgentsList(() => [...existAgents])
     } catch (error) {
-      return (<div>Something went wrong!!! Please try again</div>)
+      if (!error) {
+        return;
+      }
+      setErrorPage(true);
     }
   }
 
@@ -117,37 +119,42 @@ const Agent = () => {
   }
 
   return (
-    <Page>
-      <AgentHeader
-        agents={agents}
-      />
+    errorPage ?
+      <div className="errorPage">
+        <p>Something went wrong!!!</p>
+        <p>Please try again later!!!</p>
+      </div> :
+      <Page>
+        <AgentHeader
+          agents={agents}
+        />
 
-      <div className="nav">
-        <Tab onClick={(value: number) => handleTabChange(value)} />
-        <div className="search">
-          <span className="iconfont icon-search"/>
-          <input type="text" onChange={event => handleSearch(event)}/>
+        <div className="nav">
+          <Tab onClick={(value: number) => handleTabChange(value)} />
+          <div className="search">
+            <span className="iconfont icon-search"/>
+            <input type="text" onChange={event => handleSearch(event)}/>
+          </div>
+          <div className="iconfont icon-th-card"/>
+          <div className="iconfont icon-th-list active"/>
         </div>
-        <div className="iconfont icon-th-card"/>
-        <div className="iconfont icon-th-list active"/>
-      </div>
 
-      <div className="agents">
-        {agentsList.length !== 0 && agentsList.map(agent => (
-          <AgentListItem
-            agent={agent}
-            onSetPopup={(agentId: number) => handleSetPopup(agentId)}
-            onDeleteResource={(agentId: number, index: number) => handleDeleteResource(agentId, index)}
-          />
-        ))}
-      </div>
+        <div className="agents">
+          {agentsList.length !== 0 && agentsList.map(agent => (
+            <AgentListItem
+              agent={agent}
+              onSetPopup={(agentId: number) => handleSetPopup(agentId)}
+              onDeleteResource={(agentId: number, index: number) => handleDeleteResource(agentId, index)}
+            />
+          ))}
+        </div>
 
-      <Popup
-        isPopupDisplay={isPopupDisplay}
-        onAddResources={(value: string) => handleAddResources(value)}
-        onCancel={() => setIsPopupDisplay(false)}
-      />
-    </Page>
+        <Popup
+          isPopupDisplay={isPopupDisplay}
+          onAddResources={(value: string) => handleAddResources(value)}
+          onCancel={() => setIsPopupDisplay(false)}
+        />
+      </Page>
   )
 }
 export default Agent;

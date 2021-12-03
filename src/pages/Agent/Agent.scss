@@ -44,3 +44,16 @@
 .agents {
   margin-top: 15px;
 }
+
+.errorPage {
+  width: 100%;
+  height: 100%;
+  padding: 100px 0;
+  font-size: 30px;
+  color: red;
+  text-align: center;
+
+  p {
+    margin-bottom: 10px;
+  }
+}
