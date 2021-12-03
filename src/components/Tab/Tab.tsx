@@ -8,7 +8,7 @@ type tab = {
 }
 
 type IProps = {
-  onClick: (arg0: number) => void;
+  onClick: (value: number) => void;
 }
 
 const Tab = (props: IProps) => {

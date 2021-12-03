@@ -39,9 +39,11 @@ const Agent = () => {
     fetchData();
   }, []);
 
-  async function fetchData() {
+  const fetchData = async () => {
     try {
       const existAgents = await cruiseApi.getAgents();
+      // @ts-ignore
+      // throw new error('error');
       setAgents(() => [...existAgents]);
       setAgentsList(() => [...existAgents])
     } catch (error) {
@@ -50,16 +52,20 @@ const Agent = () => {
   }
 
   const handleTabChange = (value: number): void => {
-    if (value === 0) {
-      setAgentsList(() => [...agents]);
-    }
-    if (value === 1) {
-      const physicalAgents = agents.filter(agent => agent.type === AgentType.PHYSICAL)
-      setAgentsList(() => [...physicalAgents]);
-    }
-    if (value === 2) {
-      const virtualAgents = agents.filter(agent => agent.type === AgentType.VIRTUAL)
-      setAgentsList(() => [...virtualAgents]);
+    switch (value) {
+      case 0:
+        setAgentsList(() => [...agents]);
+        break;
+      case 1:
+        const physicalAgents = agents.filter(agent => agent.type === AgentType.PHYSICAL)
+        setAgentsList(() => [...physicalAgents]);
+        break;
+      case 2:
+        const virtualAgents = agents.filter(agent => agent.type === AgentType.VIRTUAL)
+        setAgentsList(() => [...virtualAgents]);
+        break;
+      default:
+        return;
     }
   }
 
@@ -129,7 +135,6 @@ const Agent = () => {
       <div className="agents">
         {agentsList.length !== 0 && agentsList.map(agent => (
           <AgentListItem
-            // src={src}
             agent={agent}
             onSetPopup={(agentId: number) => handleSetPopup(agentId)}
             onDeleteResource={(agentId: number, index: number) => handleDeleteResource(agentId, index)}

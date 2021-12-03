@@ -46,7 +46,7 @@ const AgentListItem = (props: IProps) => {
             >
               <span className="iconfont icon-plus"/>
             </button>
-            {agent.resources.length &&
+            {agent.resources.length !== 0 &&
               agent.resources.map((resource: string, index: number) => (
                 <button
                   className="button-resource"
