@@ -30,37 +30,24 @@ export type AgentItem = {
 }
 
 const Agent = () => {
-  const [buildingNum, setBuildingNum] = useState<number>(0);
-  const [idleNum, setIdleNum] = useState<number>(0);
   const [agents, setAgents] = useState<AgentItem[]>([]);
-  const [physicalAgents, setPhysicalAgents] = useState<AgentItem[]>([]);
-  const [virtualAgents, setVirtualAgents] = useState<AgentItem[]>([]);
   const [agentsList, setAgentsList] = useState<AgentItem[]>([]);
   const [isPopupDisplay, setIsPopupDisplay] = useState<boolean>(false);
   const [agentId, setAgentId] =useState<number>();
 
   useEffect(() => {
-    async function fetchData() {
-      try {
-        const existAgents = await cruiseApi.getAgents();
-        setAgents(() => [...existAgents]);
-        setAgentsList(() => [...existAgents]);
-
-        existAgents.forEach((existAgent: AgentItem) => {
-          existAgent.status === AgentStatus.BUILDING ?
-            setBuildingNum(buildingNum => buildingNum + 1) :
-            setIdleNum(idleNum => idleNum + 1);
-
-          existAgent.type === AgentType.PHYSICAL ?
-            setPhysicalAgents(physicalAgents => [...physicalAgents, existAgent]) :
-            setVirtualAgents(virtualAgents => [...virtualAgents, existAgent]);
-        })
-      } catch (error) {
-        console.log(error);
-      }
-    }
     fetchData();
   }, []);
+
+  async function fetchData() {
+    try {
+      const existAgents = await cruiseApi.getAgents();
+      setAgents(() => [...existAgents]);
+      setAgentsList(() => [...existAgents])
+    } catch (error) {
+      return (<div>Something went wrong!!! Please try again</div>)
+    }
+  }
 
   const handleTabChange = (value: number): void => {
     if (value === 0) {
@@ -126,10 +113,7 @@ const Agent = () => {
   return (
     <Page>
       <AgentHeader
-        physicalAgents={physicalAgents}
-        virtualAgents={virtualAgents}
-        buildingNum={buildingNum}
-        idleNum={idleNum}
+        agents={agents}
       />
 
       <div className="nav">
@@ -145,6 +129,7 @@ const Agent = () => {
       <div className="agents">
         {agentsList.length !== 0 && agentsList.map(agent => (
           <AgentListItem
+            // src={src}
             agent={agent}
             onSetPopup={(agentId: number) => handleSetPopup(agentId)}
             onDeleteResource={(agentId: number, index: number) => handleDeleteResource(agentId, index)}
